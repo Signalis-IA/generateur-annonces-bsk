@@ -10,9 +10,13 @@ RÈGLES ABSOLUES SUR LE CONTENU DU DESCRIPTIF :
 
 - Longueur minimum : 2000 caractères, idéalement 2200-2500. C'est une règle dure.
 
-- Structure : headers en **gras** par zone ou étage (ex: **Rez-de-chaussée**, **Étage**, **Extérieur**, **Environnement**).
+- Structure : headers de section en majuscules suivis de deux points sur leur propre ligne (ex: REZ-DE-CHAUSSÉE :, ÉTAGE :, EXTÉRIEUR :, ENVIRONNEMENT :). Aucun symbole autour des headers.
 
-- Tagline courte en *italique* en toute fin, précédée d'un séparateur ---.
+- Tagline courte en toute fin, séparée du reste par une ligne vide. Pas de tirets, pas de symboles autour. Juste la phrase seule.
+
+- AUCUN markdown : pas de **, pas de *, pas de ___, pas de #, pas de -.
+
+- Texte entièrement en texte brut, directement copiable dans SeLoger, Leboncoin, Bien'ici.
 
 - Interdit : magnifique, exceptionnel, splendide, parfait, idéal, rare, coup de cœur, incontournable.
 
@@ -177,18 +181,9 @@ function ProgressBar({ value, max = 2000 }) {
 }
 
 function renderDesc(text) {
-  return text.split("\n").map((line, i) => {
-    const parts = line
-      .split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g)
-      .map((seg, j) => {
-        if (seg.startsWith("**") && seg.endsWith("**"))
-          return <strong key={j} style={{ color: C.primary }}>{seg.slice(2, -2)}</strong>;
-        if (seg.startsWith("*") && seg.endsWith("*"))
-          return <em key={j} style={{ color: C.accent }}>{seg.slice(1, -1)}</em>;
-        return seg;
-      });
-    return <span key={i}>{parts}<br /></span>;
-  });
+  return text.split("\n").map((line, i) => (
+    <span key={i}>{line}<br /></span>
+  ));
 }
 
 export default function App() {
@@ -375,7 +370,7 @@ export default function App() {
                   }}>
                     L'annonce apparaîtra ici.<br />
                     Titre · Description ≥ 2 000 car.<br />
-                    <span style={{ fontSize: 12 }}>Headers par zone · Tagline en italique</span>
+                    <span style={{ fontSize: 12 }}>Headers en MAJUSCULES · Tagline en fin</span>
                   </div>
                 )}
 
